@@ -1,0 +1,23 @@
+
+<?php  if(!isset($_SESSION['id'])):?>
+    <form action="/user/update" method="POST">
+        <input hidden name="_METHOD" value="UPDATE">
+        <input hidden name="action" value="password">
+        <input name="user[old_password]" type="password" maxlength="255" required placeholder="Старый пароль">
+        <input name="user[new_password]" type="password" maxlength="255" required placeholder="Новый пароль">
+        <input name="user[confirm_password]" type="password" maxlength="255" required placeholder="Подтвердите пароль">
+        <button name="submit" type="submit">Сменить пароль</button>
+    </form>
+    <form action="/user/update" method="POST">
+        <input hidden name="_METHOD" value="UPDATE">
+        <input hidden name="action" value="login">
+        <input name="user[old_password]" type="text" maxlength="20" required placeholder="Логин">
+        <button name="submit" type="submit">Сменить логин</button>
+    </form>
+    <form action="/user/update" method="POST">
+        <input hidden name="_METHOD" value="UPDATE">
+        <input hidden name="action" value="email">
+        <input name="user[old_password]" type="email" maxlength="255" required placeholder="Email">
+        <button name="submit" type="submit">Сменить email</button>
+    </form>
+<?php endif; ?>

@@ -1,0 +1,52 @@
+<?php require_once __DIR__ . '/../layouts/header.phtml' ?>
+    <div class="container py-3">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-sm-8 col-lg-5">
+                <div class="card mb-5 shadow-sm">
+                    <div class="card-header">
+                        <p class="card-text">test</p>
+                    </div>
+                    <input type="hidden" id="photo_id" value="<?= htmlspecialchars($params['id']);?>"/>
+                    <input type="hidden" id="user_id" value="<?= htmlspecialchars($params['user_id']);?>"/>
+                    <a data-size="1600x1067">
+                        <img alt="picture"
+                             src="<?= htmlspecialchars($params['photo']) ?>"
+                             class="img-fluid"/>
+                    </a>
+                    <div class="card-body">
+                        <a id="likeButton" type="button" class="btn">
+                            <svg id="like" width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-heart-fill"
+                                 fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg" style="color: black">
+                                <path fill-rule="evenodd"
+                                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                            </svg>
+                            <p id="likesCount"></p>
+                        </a>
+                        <hr class="mb-1">
+                        <p class="card-text"><?= htmlspecialchars($params['title']) ?></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted"><?= htmlspecialchars($params['created_at']) ?></small>
+                            <?php if (isset($_SESSION['uuid']) && $params['is_owner'] === true): ?>
+                                <a href="/photo/<?= htmlspecialchars($params['id'])?>/delete" type="button" class="btn btn-sm btn-outline-secondary">Удалить</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div id="commentContainer" class="card-footer">
+                    </div>
+                    <div class="input-group ">
+                        <input id="inputComment" type="text" class="form-control" placeholder="Комментарий" aria-label="Комментарий" >
+                        <div class="input-group-append">
+                            <button id="addComment" class="btn btn-outline-secondary" type="button">Отправить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../getLikes.js" type="text/javascript"></script>
+    <script src="../setLikes.js" type="text/javascript"></script>
+    <script src="../addComment.js" type="text/javascript"></script>
+    <script src="../getComments.js" type="text/javascript"></script>
+    <script src="../deleteComment.js" type="text/javascript"></script>
+<?php require_once __DIR__ . '/../layouts/footer.phtml' ?>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../../main.css">
+</head>
+<body>
+
+<nav role="navigation" class="navbar navbar-expand-lg navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand text-light" href="/" >Camagru</a>
+    <button id="navbarButton" class="navbar-toggler" type="button" >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+
+        <ul class="navbar-nav">
+
+            <?php if (!isset($_SESSION['uuid'])): ?>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/auth/registration">Регистрация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/auth/login">Войти</a>
+                </li>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['uuid'])): ?>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/photo/new">Камера</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/setting/email">Настройки</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/auth/logout">Выйти</a>
+                </li>
+            <?php endif; ?>
+
+        </ul>
+    </div>
+</nav>
+<script src="../menu.js" type="text/javascript"></script>
