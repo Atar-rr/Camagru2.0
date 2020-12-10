@@ -34,12 +34,14 @@
                     </div>
                     <div id="commentContainer" class="card-footer">
                     </div>
+                    <?php if (isset($_SESSION['uuid'])): ?>
                     <div class="input-group ">
                         <input id="inputComment" type="text" class="form-control" placeholder="Комментарий" aria-label="Комментарий" >
                         <div class="input-group-append">
                             <button id="addComment" class="btn btn-outline-secondary" type="button">Отправить</button>
                         </div>
                     </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

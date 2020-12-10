@@ -36,7 +36,7 @@ class MainController extends Controller
             ->setPage($page);
         [$gallery, $total] = $this->model->getGallery($galleryDto);
         $this->result = [self::GALLERY => $gallery, self::COUNT_PAGES => $total, self::PAGE => $page];
-        if ($page > $total) {
+        if ($page > $total && $page !== 1) {
             $this->view->error('/error/404.phtml', 404);
         }
         $this->view->renderer('/index.phtml', $this->result);

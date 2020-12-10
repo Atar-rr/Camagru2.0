@@ -20,6 +20,8 @@ RUN apt-get update && apt-get install -y \
         zlib1g-dev \
         libjpeg-dev \
         libfreetype6-dev \
+    && apt-get clean \
+    && rm -r /var/lib/apt/lists/* \
     && pecl install xdebug-2.8.0 \
     && docker-php-ext-enable xdebug \
     && docker-php-ext-install json \

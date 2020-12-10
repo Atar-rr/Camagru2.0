@@ -1,10 +1,8 @@
 <?php
 
-
 namespace App\Src\Model\Module ;
 
 use App\Src\Exception\NotFoundException;
-use App\Src\Exception\UserUnauthorizedException;
 use App\Src\Exception\ValidateException;
 use App\Src\Model\Data\Row\TokenActivateUserRow;
 use App\Src\Model\Data\Row\TokenRestorePasswordRow;
@@ -221,7 +219,7 @@ class Auth
     {
         $title = 'Восстановление пароля на сайте Camagru';
         $body = "Для восставноления пароля перейдите по ссылке
-                       http://localhost:8080/password/restoren?token={$token}";
+                       http://localhost:8080/auth/reset?token={$token}";
 
         Mailer::sendMail($email, $title, $body);
     }
