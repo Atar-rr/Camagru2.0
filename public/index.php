@@ -1,7 +1,5 @@
 <?php
 
-include_once __DIR__ . '/../App/dev/dev.php'; #TODO удалить дебаг
-
 use App\Src\Core\Router;
 
 ini_set('display_errors', 1);

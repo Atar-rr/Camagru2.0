@@ -76,6 +76,7 @@ class Comment
         $this->commentGateway->save($this->commentRow);
 
         $this->photoRow->setId($commentDto->getImageId());
+
         /** @var UserPhotoRow $row */
         $row = $this->photoGateway->getRow($this->photoRow);
 

@@ -147,18 +147,18 @@ class UserRow extends Row
     }
 
     /**
-     * @return int
+     * @return bool
      */
-    public function getNotify(): int
+    public function getNotify(): bool
     {
         return $this->notify;
     }
 
     /**
-     * @param int $notify
+     * @param bool $notify
      * @return UserRow
      */
-    public function setNotify(int $notify): UserRow
+    public function setNotify(bool $notify): UserRow
     {
         $this->notify = $notify;
         return $this;

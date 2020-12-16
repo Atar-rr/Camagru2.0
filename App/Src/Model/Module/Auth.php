@@ -20,6 +20,7 @@ use App\Src\Model\Service\Mailer;
 use App\Src\Model\Service\PasswordHash;
 use App\Src\Model\Service\Tokenizer;
 use App\Src\Model\Type\EmailType;
+use App\Src\Model\Type\LoginType;
 use App\Src\Model\Type\PasswordType;
 use App\Src\Model\DTO\Auth\LoginDto;
 use App\Src\Model\DTO\Auth\RegistrationDto;
@@ -34,6 +35,8 @@ class Auth
     protected $emailType;
 
     protected $passwordType;
+
+    protected $loginType;
 
     protected $userRow;
 
@@ -57,6 +60,7 @@ class Auth
     {
         $this->emailType = EmailType::create();
         $this->passwordType = PasswordType::create();
+        $this->loginType = LoginType::create();
         $this->userRow = UserRow::create();
         $this->userGateway = UserGateway::create();
         $this->tokenActivateUserGateway = TokenActivateUserGateway::create();
@@ -116,13 +120,17 @@ class Auth
     {
         $email = $regInfo->getEmail();
         $password = $regInfo->getPassword();
+        $login = $regInfo->getLogin();
 
         $this->emailType->validate($email);
         $this->emailType->emailIsFree($email);
         $this->passwordType->validate($password, $regInfo->getConfirmPassword());
 
+        $this->loginType->validate($login);
+        $this->loginType->loginIsFree($login);
+
         $this->userRow->setEmail($email);
-        $this->userRow->setLogin($regInfo->getLogin());
+        $this->userRow->setLogin($login);
         $this->userRow->setPassword(PasswordHash::hash($password));
         $this->userGateway->save($this->userRow);
 

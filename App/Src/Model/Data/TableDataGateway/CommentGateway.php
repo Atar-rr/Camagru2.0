@@ -33,7 +33,12 @@ class CommentGateway extends TableDataGateway
             "INSERT INTO comments (image_id, user_id, text) VALUES (?, ?, ?)"
         );
 
-        $stmt->execute($values);
+        try {
+            $stmt->execute($values);
+        } catch (\Exception $e) {
+            var_dump($e);
+        }
+
         $object->setId((int)$this->pdo->lastInsertId());
     }
 

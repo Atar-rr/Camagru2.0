@@ -26,4 +26,6 @@ let sendComment = function () {
 
 }
 
-addComment.addEventListener('click', sendComment);
+if (addComment !== null) {
+    addComment.addEventListener('click', sendComment);
+}
