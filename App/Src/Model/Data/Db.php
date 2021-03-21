@@ -1,11 +1,13 @@
 <?php
 
-
 namespace App\Src\Model\Data;
 
-class Registry
+class Db
 {
-    public static function getPdo ()
+    /**
+     * @return \PDO|null
+     */
+    public static function getPdo(): ?\PDO
     {
         $params = include __DIR__ . '/../../../config/db.php';
 

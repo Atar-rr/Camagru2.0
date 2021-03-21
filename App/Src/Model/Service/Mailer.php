@@ -4,7 +4,7 @@ namespace App\Src\Model\Service;
 
 class Mailer
 {
-    public static function sendMail(string $email, string $subject, string $message)
+    public static function sendMail(string $email, string $subject, string $message): void
     {
         $headers = "MIME-Version: 1.0\r\n";
         $headers .= "Content-type: text/html; charset=utf-8\r\n";

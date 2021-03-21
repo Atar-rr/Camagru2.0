@@ -2,7 +2,7 @@
 
 namespace App\Src\Model\Data\TableDataGateway;
 
-use App\Src\Model\Data\Registry;
+use App\Src\Model\Data\Db;
 use App\Src\Model\Data\Row\Row;
 
 abstract class TableDataGateway
@@ -14,7 +14,7 @@ abstract class TableDataGateway
      */
     public function __construct()
     {
-        $this->pdo = Registry::getPdo();
+        $this->pdo = Db::getPdo();
     }
 
     /**
@@ -65,7 +65,7 @@ abstract class TableDataGateway
      *
      * @param Row $object
      */
-    public function save(Row $object)
+    public function save(Row $object): void
     {
         if ($object->getId() !== null) {
             $this->update($object);

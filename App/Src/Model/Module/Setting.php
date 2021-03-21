@@ -8,7 +8,7 @@ use App\Src\Model\Data\TableDataGateway\UserGateway;
 use App\Src\Model\DTO\Setting\EmailEditDTO;
 use App\Src\Model\DTO\Setting\LoginEditDTO;
 use App\Src\Model\DTO\Setting\PasswordEditDTO;
-use App\Src\Model\Service\Logger;
+use App\Src\Model\Service\Auth;
 use App\Src\Model\Service\PasswordHash;
 use App\Src\Model\Type\EmailType;
 use App\Src\Model\Type\LoginType;
@@ -35,7 +35,7 @@ class Setting
         $this->loginType = LoginType::create();
         $this->userRow = UserRow::create();
         $this->userGateway = UserGateway::create();
-        $this->logger = Logger::create();
+        $this->logger = Auth::create();
     }
 
     /**
@@ -49,7 +49,7 @@ class Setting
         $this->emailType->validate($email);
         $this->emailType->emailIsFree($email);
 
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
 
         $this->userRow->setId($userId);
 
@@ -71,7 +71,7 @@ class Setting
         $this->loginType->validate($login);
         $this->loginType->loginIsFree($login);
 
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
 
         $this->userRow->setId($userId);
 
@@ -89,7 +89,7 @@ class Setting
     public function passwordEdit(PasswordEditDTO $passwordEditDto)
     {
         $newPassword = $passwordEditDto->getNewPassword();
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
         $this->userRow->setId($userId);
 
         /** @var UserRow $user */
@@ -107,7 +107,7 @@ class Setting
 
     public function notifyChange(int $notify)
     {
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
         $this->userRow->setId($userId);
 
         /** @var UserRow $user */
@@ -119,7 +119,7 @@ class Setting
 
     public function getNotify(): string
     {
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
         $this->userRow->setId($userId);
 
         /** @var UserRow $user */
@@ -130,7 +130,7 @@ class Setting
 
     public function getEmail(): string
     {
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
         $this->userRow->setId($userId);
 
         /** @var UserRow $user */
@@ -141,7 +141,7 @@ class Setting
 
     public function getLogin(): string
     {
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
         $this->userRow->setId($userId);
 
         /** @var UserRow $user */

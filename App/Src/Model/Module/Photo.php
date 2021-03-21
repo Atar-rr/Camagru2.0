@@ -11,7 +11,7 @@ use App\Src\Model\Data\TableDataGateway\UserPhotoGateway;
 use App\Src\Model\DTO\Photo\GalleryDto;
 use App\Src\Model\DTO\Photo\NewDto;
 use App\Src\Model\DTO\Photo\UserPhotoDto;
-use App\Src\Model\Service\Logger;
+use App\Src\Model\Service\Auth;
 use App\Src\Model\Service\Tokenizer;
 use App\Src\Model\Type\PhotoType;
 
@@ -36,7 +36,7 @@ class Photo
      * @param NewDto $newDto
      * @throws \App\Src\Exception\ValidateException
      */
-    public function newPhoto(NewDto $newDto)
+    public function newPhoto(NewDto $newDto): void
     {
         $photo = $newDto->getPhoto();
         $this->photoType->validate($photo);
@@ -45,7 +45,7 @@ class Photo
             $photo = $this->mergePhotos($photo, $newDto->getMasks());
         }
         $name = Tokenizer::generate(5) . '.' . $this->photoType->getPhotoType();
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
         $this->userPhotoRow
             ->setName($name)
             ->setTitle($newDto->getTitle())
@@ -89,7 +89,7 @@ class Photo
     {
         $result = [];
 
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
         $this->userPhotoRow->setUserId($userId);
         $userPhotos = $this->userPhotoGateway->getByUserId($this->userPhotoRow);
 
@@ -114,7 +114,7 @@ class Photo
         if ($row === null) {
             return $result;
         }
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
 
         /** @var UserPhotoRow $row */
         $result = [
@@ -134,7 +134,7 @@ class Photo
      * @throws NotFoundException
      * @throws UserUnauthorizedException
      */
-    public function deleteUserPhoto(UserPhotoDto $photoDto)
+    public function deleteUserPhoto(UserPhotoDto $photoDto): void
     {
         $this->userPhotoRow->setId($photoDto->getId());
 
@@ -145,7 +145,7 @@ class Photo
             throw new NotFoundException('Изображение не найдено');
         }
 
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
         if ($userId !== $row->getUserId()) {
             throw new UserUnauthorizedException('Изображение вам не принадлежит');
         }
@@ -169,17 +169,17 @@ class Photo
         imagealphablending($filter, false);
         imagesavealpha($filter, true);
 
-        $w_src = imagesx($image);
-        $h_src = imagesy($image);
+        $wSrc = imagesx($image);
+        $hSrc = imagesy($image);
 
-        imagecopyresampled($image, $filter, 0, 0, 0, 0, $w_src, $h_src, $w_src, $h_src);
+        imagecopyresampled($image, $filter, 0, 0, 0, 0, $wSrc, $hSrc, $wSrc, $hSrc);
         imagealphablending($image, false);
         imagesavealpha($image, true);
 
-        $image_name = __DIR__ .  "/tmp/tmp_" . Logger::getUserIdFromSession() . ".png";
-        imagepng($image, $image_name);
-        $data = file_get_contents($image_name);
-        unlink($image_name);
+        $imageName = __DIR__ .  "/tmp/tmp_" . Auth::getUserIdFromSession() . ".png";
+        imagepng($image, $imageName);
+        $data = file_get_contents($imageName);
+        unlink($imageName);
 
         return "data:image/png;base64," . base64_encode($data);
     }

@@ -23,7 +23,10 @@ class CommentController extends Controller
         $this->model = new Comment();
     }
 
-    public function commentAction()
+    /**
+     *
+     */
+    public function commentAction(): void
     {
         if ($this->method === self::METHOD_POST) {
             $this->userIsLogin();
@@ -41,7 +44,10 @@ class CommentController extends Controller
         }
     }
 
-    public function deleteAction()
+    /**
+     *
+     */
+    public function deleteAction(): void
     {
         $this->userIsLogin();
         $commentDto = (new CommentDto())

@@ -6,7 +6,10 @@ use App\Src\Exception\ValidateException;
 
 class PasswordType extends BaseType
 {
-    public static function create()
+    /**
+     * @return PasswordType
+     */
+    public static function create(): PasswordType
     {
         return new self();
     }
@@ -16,7 +19,7 @@ class PasswordType extends BaseType
      * @param string $confirmPassword
      * @throws ValidateException
      */
-    public function validate(string $password, string $confirmPassword)
+    public function validate(string $password, string $confirmPassword): void
     {
         if ($password === '') {
             throw new ValidateException('Поле password не может быть пустым', 400);
@@ -35,7 +38,12 @@ class PasswordType extends BaseType
         }
     }
 
-    public function verify(string $password, string $hash)
+    /**
+     * @param string $password
+     * @param string $hash
+     * @return bool
+     */
+    public function verify(string $password, string $hash): bool
     {
         return password_verify($password, $hash);
     }

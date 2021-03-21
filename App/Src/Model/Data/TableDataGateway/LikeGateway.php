@@ -7,18 +7,24 @@ use App\Src\Model\Data\Row\Row;
 
 class LikeGateway extends TableDataGateway
 {
-    const
+    public const
         ID         = 'id',
         USER_ID    = 'user_id',
         IMAGE_ID   = 'image_id'
        ;
 
+    /**
+     * @return LikeGateway
+     */
     public static function create(): LikeGateway
     {
         return new self();
     }
 
-    protected function insert(Row $object)
+    /**
+     * @param Row $object
+     */
+    protected function insert(Row $object): void
     {
         /** @var LikeRow $object */
         $values = [
@@ -34,7 +40,10 @@ class LikeGateway extends TableDataGateway
         $object->setId((int)$this->pdo->lastInsertId());
     }
 
-    public function delete(Row $object)
+    /**
+     * @param Row $object
+     */
+    public function delete(Row $object): void
     {
         $value = [
             $object->getId()
@@ -45,7 +54,10 @@ class LikeGateway extends TableDataGateway
         $stmt->execute($value);
     }
 
-    protected function update(Row $object)
+    /**
+     * @param Row $object
+     */
+    protected function update(Row $object): void
     {
         /** @var LikeRow $object */
         $values = [
@@ -60,6 +72,10 @@ class LikeGateway extends TableDataGateway
         $stmt->execute($values);
     }
 
+    /**
+     * @param Row $object
+     * @return \PDOStatement
+     */
     protected function select(Row $object): \PDOStatement
     {
         return $this->pdo->prepare(
@@ -67,6 +83,10 @@ class LikeGateway extends TableDataGateway
         );
     }
 
+    /**
+     * @param Row $object
+     * @return int
+     */
     public function getCountByImageId(Row $object): int
     {
         /** @var LikeRow $object */
@@ -81,6 +101,10 @@ class LikeGateway extends TableDataGateway
         return $tmp['count(id)'];
     }
 
+    /**
+     * @param Row $object
+     * @return Row|null
+     */
     public function getLikeByUserId(Row $object): ?Row
     {
         /** @var LikeRow $object */
@@ -99,8 +123,10 @@ class LikeGateway extends TableDataGateway
         return $this->createObject($row);
     }
 
+
     /**
-     * @inheritDoc
+     * @param Row $object
+     * @return \PDOStatement
      */
     protected function selectAll(Row $object): \PDOStatement
     {
@@ -109,8 +135,10 @@ class LikeGateway extends TableDataGateway
         );
     }
 
+
     /**
-     * @inheritDoc
+     * @param array $row
+     * @return Row
      */
     protected function createObject(array $row): Row
     {

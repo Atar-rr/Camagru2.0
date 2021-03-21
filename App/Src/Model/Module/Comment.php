@@ -11,7 +11,7 @@ use App\Src\Model\Data\TableDataGateway\CommentGateway;
 use App\Src\Model\Data\TableDataGateway\UserGateway;
 use App\Src\Model\Data\TableDataGateway\UserPhotoGateway;
 use App\Src\Model\DTO\Photo\CommentDto;
-use App\Src\Model\Service\Logger;
+use App\Src\Model\Service\Auth;
 use App\Src\Model\Service\Mailer;
 
 class Comment
@@ -58,7 +58,7 @@ class Comment
             throw new NotFoundException('Комментарий не найден');
         }
 
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
         if ($userId !== $row->getUserId()) {
             throw new UserUnauthorizedException('Комментарий вам не принадлежит');
         }
@@ -71,7 +71,7 @@ class Comment
     {
         $this->commentRow
             ->setImageId($commentDto->getImageId())
-            ->setUserId(Logger::getUserIdFromSession())
+            ->setUserId(Auth::getUserIdFromSession())
             ->setText($commentDto->getText());
         $this->commentGateway->save($this->commentRow);
 
@@ -97,7 +97,7 @@ class Comment
         if ($rows === null) {
             return [];
         }
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
 
         foreach ($rows as &$row) {
             if ($row[self::USER_ID] === $userId) {

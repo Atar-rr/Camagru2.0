@@ -1,15 +1,13 @@
 <?php
 
-
 namespace App\Src\Model\Data\TableDataGateway;
-
 
 use App\Src\Model\Data\Row\Row;
 use App\Src\Model\Data\Row\UserRow;
 
 class UserGateway extends TableDataGateway
 {
-    const
+    public const
         ID = 'id',
         EMAIL = 'email',
         LOGIN = 'login',
@@ -19,11 +17,18 @@ class UserGateway extends TableDataGateway
         CREATE_DATE = 'create_date',
         UPDATE_DATE = 'update_date';
 
-    public static function create()
+    /**
+     * @return UserGateway
+     */
+    public static function create(): UserGateway
     {
         return new self();
     }
 
+    /**
+     * @param Row $object
+     * @return \PDOStatement
+     */
     public function select(Row $object): \PDOStatement
     {
         return $this->pdo->prepare(
@@ -31,6 +36,10 @@ class UserGateway extends TableDataGateway
         );
     }
 
+    /**
+     * @param Row $object
+     * @return \PDOStatement
+     */
     public function selectAll(Row $object): \PDOStatement
     {
         return $this->pdo->prepare(
@@ -38,7 +47,10 @@ class UserGateway extends TableDataGateway
         );
     }
 
-    public function insert(Row $object)
+    /**
+     * @param Row $object
+     */
+    public function insert(Row $object): void
     {
         /** @var UserRow $object */
         $values = [
@@ -55,7 +67,10 @@ class UserGateway extends TableDataGateway
         $object->setId((int)$this->pdo->lastInsertId());
     }
 
-    public function update(Row $object)
+    /**
+     * @param Row $object
+     */
+    public function update(Row $object): void
     {
         /** @var UserRow $object */
         $values = [
@@ -73,7 +88,10 @@ class UserGateway extends TableDataGateway
         $stmt->execute($values);
     }
 
-    public function activateUser(Row $object)
+    /**
+     * @param Row $object
+     */
+    public function activateUser(Row $object): void
     {
         /** @var UserRow $object */
         $values = [
@@ -87,7 +105,10 @@ class UserGateway extends TableDataGateway
         $stmt->execute($values);
     }
 
-    public function getByEmail(Row $object)
+    /**
+     * @param Row $object
+     */
+    public function getByEmail(Row $object): void
     {
         /** @var UserRow $object */
         $values = [
@@ -113,7 +134,10 @@ class UserGateway extends TableDataGateway
         }
     }
 
-    public function getByEmailOrLogin(Row $object)
+    /**
+     * @param Row $object
+     */
+    public function getByEmailOrLogin(Row $object): void
     {
         /** @var UserRow $object */
         $values = [
@@ -141,7 +165,10 @@ class UserGateway extends TableDataGateway
         }
     }
 
-    public function updatePasswordById(Row $object)
+    /**
+     * @param Row $object
+     */
+    public function updatePasswordById(Row $object): void
     {
         /** @var UserRow $object */
         $values = [
@@ -199,7 +226,10 @@ class UserGateway extends TableDataGateway
         return $stmt->rowCount() === 1;
     }
 
-    public function delete(Row $object)
+    /**
+     * @param Row $object
+     */
+    public function delete(Row $object): void
     {
         /** @var UserRow $object */
         $value = [
@@ -211,6 +241,10 @@ class UserGateway extends TableDataGateway
         $stmt->execute($value);
     }
 
+    /**
+     * @param array $row
+     * @return Row
+     */
     protected function createObject(array $row): Row
     {
         return

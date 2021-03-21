@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Src\Controller;
-
 
 use App\Src\Core\Controller;
 use App\Src\Model\DTO\Photo\GalleryDto;
@@ -21,7 +19,7 @@ class MainController extends Controller
     }
 
 
-    public function mainAction()
+    public function mainAction(): void
     {
         if (isset($this->query[self::FIELD_PAGE])
             && is_numeric($this->query[self::FIELD_PAGE])

@@ -9,7 +9,7 @@ use App\Src\Model\Data\TableDataGateway\LikeGateway;
 use App\Src\Model\Data\TableDataGateway\UserGateway;
 use App\Src\Model\Data\TableDataGateway\UserPhotoGateway;
 use App\Src\Model\DTO\Photo\LikeDto;
-use App\Src\Model\Service\Logger;
+use App\Src\Model\Service\Auth;
 use App\Src\Model\Service\Mailer;
 
 class Like
@@ -42,7 +42,7 @@ class Like
 
         $this->likeRow->setImageId($likeDto->getPhotoId());
         $total = $this->likeGateway->getCountByImageId($this->likeRow);
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
         if ($userId === null) {
             return [$userIsLike, $total];
         }
@@ -61,7 +61,7 @@ class Like
      */
     public function setLikes(LikeDto $likeDto)
     {
-        $userId = Logger::getUserIdFromSession();
+        $userId = Auth::getUserIdFromSession();
         $imageId = $likeDto->getPhotoId();
 
         $this->likeRow->setImageId($imageId);

@@ -1,15 +1,13 @@
 <?php
 
-
 namespace App\Src\Model\Data\TableDataGateway;
-
 
 use App\Src\Model\Data\Row\Row;
 use App\Src\Model\Data\Row\UserSessionRow;
 
 class UserSessionGateway extends TableDataGateway
 {
-    const
+    public const
         ID = 'id',
         USER_ID = 'user_id',
         TOKEN = 'token',
@@ -23,7 +21,7 @@ class UserSessionGateway extends TableDataGateway
     /**
      * @param Row $object
      */
-    protected function insert(Row $object)
+    protected function insert(Row $object): void
     {
         /** @var UserSessionRow  $object */
         $values = [$object->getUserId(), $object->getToken()];
@@ -36,7 +34,7 @@ class UserSessionGateway extends TableDataGateway
         $object->setId((int)$this->pdo->lastInsertId());
     }
 
-    protected function update(Row $object)
+    protected function update(Row $object): void
     {
         /** @var UserSessionRow  $object */
         $values = [
@@ -58,7 +56,7 @@ class UserSessionGateway extends TableDataGateway
         );
     }
 
-    public function selectByToken(Row $object)
+    public function selectByToken(Row $object): void
     {
         /** @var UserSessionRow  $object */
         $values = [
@@ -89,7 +87,7 @@ class UserSessionGateway extends TableDataGateway
     /**
      * @param Row $object
      */
-    public function delete(Row $object)
+    public function delete(Row $object): void
     {
         $value = [
             $object->getId()
@@ -103,7 +101,7 @@ class UserSessionGateway extends TableDataGateway
     /**
      * @param Row $object
      */
-    public function deleteByToken(Row $object)
+    public function deleteByToken(Row $object): void
     {
         /** @var UserSessionRow  $object */
         $value = [
@@ -118,7 +116,7 @@ class UserSessionGateway extends TableDataGateway
     /**
      * @param Row $object
      */
-    public function deleteByUserId(Row $object)
+    public function deleteByUserId(Row $object): void
     {
         /** @var UserSessionRow  $object */
         $value = [

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Src\Model\Type;
-
 
 use App\Src\Exception\ValidateException;
 use App\Src\Model\Data\Row\UserRow;
@@ -14,14 +12,19 @@ class LoginType extends BaseType
      * @param string $login
      * @throws ValidateException
      */
-    public function validate(string $login)
+    public function validate(string $login): void
     {
         if ($login === '') {
             throw new ValidateException('Поле логин не может быть пустым', 400);
-        } elseif (!preg_match('/^([\wа-яА-Я])+(?!.*\W)$/', $login)) {
+        }
+
+        if (!preg_match('/^([\wа-яА-Я])+(?!.*\W)$/', $login)) {
             throw new ValidateException('Вы ввели недопустимые символы. Логин может содержать буквы,
              цифры и символы нижнего подчеркивания', 400);
-        } elseif (mb_strlen($login) < 3 ||  mb_strlen($login) > 20) {
+        }
+
+        $len = mb_strlen($login);
+        if ($len < 3 ||  $len > 20) {
             throw new ValidateException('Логин должен быть от 3 до 20 символов', 400);
         }
     }
@@ -30,7 +33,7 @@ class LoginType extends BaseType
      * @param string $login
      * @throws ValidateException
      */
-    public function loginIsFree(string $login)
+    public function loginIsFree(string $login): void
     {
         $userGateway = UserGateway::create();
         $userRow = UserRow::create();
@@ -40,7 +43,10 @@ class LoginType extends BaseType
         }
     }
 
-    public static function create()
+    /**
+     * @return LoginType
+     */
+    public static function create(): LoginType
     {
         return new self();
     }

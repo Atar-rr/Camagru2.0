@@ -15,7 +15,7 @@ use App\Src\Model\Data\TableDataGateway\UserSessionGateway;
 use App\Src\Model\DTO\Auth\ActivateDto;
 use App\Src\Model\DTO\Auth\RestorePassDto;
 use App\Src\Model\DTO\Auth\UpdatePassDto;
-use App\Src\Model\Service\Logger;
+use App\Src\Model\Service\Auth;
 use App\Src\Model\Service\Mailer;
 use App\Src\Model\Service\PasswordHash;
 use App\Src\Model\Service\Tokenizer;
@@ -69,7 +69,7 @@ class Auth
         $this->restorePasswordRow = TokenRestorePasswordRow::create();
         $this->userSessionGateway = UserSessionGateway::create();
         $this->userSessionRow = UserSessionRow::create();
-        $this->logger = Logger::create();
+        $this->logger = Auth::create();
     }
 
     /**

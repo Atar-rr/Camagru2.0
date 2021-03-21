@@ -1,26 +1,30 @@
 <?php
 
-
 namespace App\Src\Model\Data\TableDataGateway;
-
 
 use App\Src\Model\Data\Row\Row;
 use App\Src\Model\Data\Row\TokenActivateUserRow;
 
 class TokenActivateUserGateway extends TableDataGateway
 {
-    const
+    public const
         ID = 'id',
         USER_ID = 'user_id',
         TOKEN = 'token',
         CREATED_DATE = 'created_date';
 
-    public static function create()
+    /**
+     * @return TokenActivateUserGateway
+     */
+    public static function create(): TokenActivateUserGateway
     {
         return new self();
     }
 
-    protected function insert(Row $object)
+    /**
+     * @param Row $object
+     */
+    protected function insert(Row $object): void
     {
         /** @var TokenActivateUserRow $object */
         $values = [
@@ -36,7 +40,10 @@ class TokenActivateUserGateway extends TableDataGateway
         $object->setId((int)$this->pdo->lastInsertId());
     }
 
-    protected function update(Row $object)
+    /**
+     * @param Row $object
+     */
+    protected function update(Row $object): void
     {
         /** @var TokenActivateUserRow $object */
         $values = [
@@ -51,6 +58,10 @@ class TokenActivateUserGateway extends TableDataGateway
         $stmt->execute($values);
     }
 
+    /**
+     * @param Row $object
+     * @return \PDOStatement
+     */
     protected function select(Row $object): \PDOStatement
     {
         return $this->pdo->prepare(
@@ -58,7 +69,10 @@ class TokenActivateUserGateway extends TableDataGateway
         );
     }
 
-    public function selectByToken(Row $object)
+    /**
+     * @param Row $object
+     */
+    public function selectByToken(Row $object): void
     {
         /** @var TokenActivateUserRow $object */
         $values = [
@@ -79,6 +93,10 @@ class TokenActivateUserGateway extends TableDataGateway
         }
     }
 
+    /**
+     * @param Row $object
+     * @return \PDOStatement
+     */
     protected function selectAll(Row $object): \PDOStatement
     {
         return $this->pdo->prepare(
@@ -86,7 +104,10 @@ class TokenActivateUserGateway extends TableDataGateway
         );
     }
 
-    public function delete(Row $object)
+    /**
+     * @param Row $object
+     */
+    public function delete(Row $object): void
     {
         /** @var TokenActivateUserRow $object */
         $value = [
@@ -98,6 +119,10 @@ class TokenActivateUserGateway extends TableDataGateway
         $stmt->execute($value);
     }
 
+    /**
+     * @param array $row
+     * @return Row
+     */
     protected function createObject(array $row): Row
     {
         return

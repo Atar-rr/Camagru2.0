@@ -7,7 +7,7 @@ use App\Src\Model\Data\Row\Row;
 
 class CommentGateway extends TableDataGateway
 {
-    const
+    public const
         ID         = 'id',
         USER_ID    = 'user_id',
         IMAGE_ID   = 'image_id',
@@ -15,12 +15,18 @@ class CommentGateway extends TableDataGateway
         CREATED_AT = 'created_at'
     ;
 
-    public static function create()
+    /**
+     * @return CommentGateway
+     */
+    public static function create(): CommentGateway
     {
         return new self();
     }
 
-    protected function insert(Row $object)
+    /**
+     * @param Row $object
+     */
+    protected function insert(Row $object): void
     {
         /** @var CommentRow $object */
         $values = [
@@ -42,7 +48,10 @@ class CommentGateway extends TableDataGateway
         $object->setId((int)$this->pdo->lastInsertId());
     }
 
-    public function delete(Row $object)
+    /**
+     * @param Row $object
+     */
+    public function delete(Row $object): void
     {
         /** @var CommentRow $object */
         $value = [
@@ -54,7 +63,10 @@ class CommentGateway extends TableDataGateway
         $stmt->execute($value);
     }
 
-    protected function update(Row $object)
+    /**
+     * @param Row $object
+     */
+    protected function update(Row $object): void
     {
         /** @var CommentRow $object */
         $values = [
@@ -70,6 +82,10 @@ class CommentGateway extends TableDataGateway
         $stmt->execute($values);
     }
 
+    /**
+     * @param Row $object
+     * @return \PDOStatement
+     */
     protected function select(Row $object): \PDOStatement
     {
         return $this->pdo->prepare(
@@ -77,6 +93,10 @@ class CommentGateway extends TableDataGateway
         );
     }
 
+    /**
+     * @param Row $object
+     * @return \PDOStatement
+     */
     protected function selectAll(Row $object): \PDOStatement
     {
         return $this->pdo->prepare(
@@ -84,6 +104,10 @@ class CommentGateway extends TableDataGateway
         );
     }
 
+    /**
+     * @param Row $object
+     * @return array|null
+     */
     public function getByImageId(Row $object): ?array
     {
         /** @var CommentRow $object */
@@ -103,6 +127,10 @@ class CommentGateway extends TableDataGateway
         return $rows;
     }
 
+    /**
+     * @param Row $object
+     * @return Row|null
+     */
     public function getCommentByUserId(Row $object): ?Row
     {
         /** @var CommentRow $object */
@@ -123,6 +151,10 @@ class CommentGateway extends TableDataGateway
         return $this->createObject($row);
     }
 
+    /**
+     * @param array $row
+     * @return Row
+     */
     protected function createObject(array $row): Row
     {
         return (new CommentRow())

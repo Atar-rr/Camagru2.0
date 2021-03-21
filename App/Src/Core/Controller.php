@@ -3,7 +3,7 @@
 namespace App\Src\Core;
 
 use App\Src\FieldsConst;
-use App\Src\Model\Service\Logger;
+use App\Src\Model\Service\Auth;
 
 /**
  * Class Controller
@@ -65,19 +65,19 @@ class Controller implements FieldsConst
         $this->view = $view;
         parse_str($query, $this->query);
         $this->method = $_SERVER[self::REQUEST_METHOD];
-        $this->auth = new Logger();
+        $this->auth = new Auth();
     }
 
     /**
      * @param string $url
      */
-    protected function redirect(string $url)
+    protected function redirect(string $url): void
     {
         header('Location: http://' . $_SERVER[self::HTTP_HOST] . $url, true, self::REDIRECT_CODE);
         die();
     }
 
-    protected function userIsLogin()
+    protected function userIsLogin(): void
     {
         try {
             $this->auth->checkUserLogin();
@@ -86,7 +86,7 @@ class Controller implements FieldsConst
         }
     }
 
-    protected function forbidden()
+    protected function forbidden(): void
     {
         header("HTTP/1.1 403 Forbidden");
         $this->redirect('/auth/login');

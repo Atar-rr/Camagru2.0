@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Src\Model\Service;
 
 class Tokenizer

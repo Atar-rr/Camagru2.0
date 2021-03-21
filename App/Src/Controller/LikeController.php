@@ -22,7 +22,7 @@ class LikeController extends Controller
         $this->model = new Like();
     }
 
-    public function likeAction()
+    public function likeAction(): void
     {
         if ($this->method === self::METHOD_POST) {
             $this->userIsLogin();

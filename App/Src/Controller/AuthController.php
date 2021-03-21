@@ -14,10 +14,10 @@ use App\Src\Model\Module\Auth;
 
 class AuthController extends Controller
 {
-    const MESSAGE_RESTORE = 'На указанный email отправлено письмо с инструкциями по сбросу пароля';
-    const MESSAGE_RESET = 'Установлен новый пароль';
-    const MESSAGE_ACTIVATE = 'Ваш аккаунт активирован';
-    const MESSAGE_REG = 'Спасибо за регистрацию. Вам необходимо подтвердить ваш email. Для этого нужно перейти по ссылке которую мы отправили на ваш email';
+    protected const MESSAGE_RESTORE = 'На указанный email отправлено письмо с инструкциями по сбросу пароля';
+    protected const MESSAGE_RESET = 'Установлен новый пароль';
+    protected const MESSAGE_ACTIVATE = 'Ваш аккаунт активирован';
+    protected const MESSAGE_REG = 'Спасибо за регистрацию. Вам необходимо подтвердить ваш email. Для этого нужно перейти по ссылке которую мы отправили на ваш email';
 
     /**
      * AuthController constructor.
@@ -101,7 +101,7 @@ class AuthController extends Controller
      *
      * @return AuthController|void
      */
-    public function activateAction()
+    public function activateAction(): AuthController
     {
         try {
             $this->auth->checkUserLogin();
@@ -131,7 +131,7 @@ class AuthController extends Controller
      *
      * @return AuthController|void
      */
-    public function resetAction()
+    public function resetAction(): AuthController
     {
         try {
             $this->auth->checkUserLogin();
@@ -166,7 +166,7 @@ class AuthController extends Controller
      *
      * @return AuthController|void
      */
-    public function restoreAction()
+    public function restoreAction(): AuthController
     {
         try {
             $this->auth->checkUserLogin();
@@ -197,7 +197,7 @@ class AuthController extends Controller
     /**
      * @return AuthController|void
      */
-    public function logoutAction()
+    public function logoutAction(): AuthController
     {
         try {
             $this->model->logout();

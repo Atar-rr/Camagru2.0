@@ -9,18 +9,24 @@ use App\Src\Model\Data\Row\TokenRestorePasswordRow;
 
 class TokenRestorePasswordGateway extends TableDataGateway
 {
-    const
+    public const
         ID = 'id',
         USER_ID = 'user_id',
         TOKEN = 'token',
         CREATED_DATE = 'created_date';
 
-    public static function create()
+    /**
+     * @return TokenRestorePasswordGateway
+     */
+    public static function create(): TokenRestorePasswordGateway
     {
         return new self();
     }
 
-    protected function insert(Row $object)
+    /**
+     * @param Row $object
+     */
+    protected function insert(Row $object): void
     {
         $values = [$object->getUserId(), $object->getToken()];
 
@@ -32,7 +38,10 @@ class TokenRestorePasswordGateway extends TableDataGateway
         $object->setId((int)$this->pdo->lastInsertId());
     }
 
-    protected function update(Row $object)
+    /**
+     * @param Row $object
+     */
+    protected function update(Row $object): void
     {
         $values = [
             $object->getId(),
@@ -46,6 +55,10 @@ class TokenRestorePasswordGateway extends TableDataGateway
         $stmt->execute($values);
     }
 
+    /**
+     * @param Row $object
+     * @return \PDOStatement
+     */
     protected function select(Row $object): \PDOStatement
     {
         return $this->pdo->prepare(
@@ -53,7 +66,10 @@ class TokenRestorePasswordGateway extends TableDataGateway
         );
     }
 
-    public function selectByToken(Row $object)
+    /**
+     * @param Row $object
+     */
+    public function selectByToken(Row $object): void
     {
         $values = [
             $object->getToken(),
@@ -73,6 +89,10 @@ class TokenRestorePasswordGateway extends TableDataGateway
         }
     }
 
+    /**
+     * @param Row $object
+     * @return \PDOStatement
+     */
     protected function selectAll(Row $object): \PDOStatement
     {
         return $this->pdo->prepare(
@@ -80,7 +100,10 @@ class TokenRestorePasswordGateway extends TableDataGateway
         );
     }
 
-    public function delete(Row $object)
+    /**
+     * @param Row $object
+     */
+    public function delete(Row $object): void
     {
         $value = [
             $object->getId()
@@ -91,6 +114,10 @@ class TokenRestorePasswordGateway extends TableDataGateway
         $stmt->execute($value);
     }
 
+    /**
+     * @param array $row
+     * @return Row
+     */
     protected function createObject(array $row): Row
     {
         return

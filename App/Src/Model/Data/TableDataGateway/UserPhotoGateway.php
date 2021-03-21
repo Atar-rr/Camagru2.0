@@ -9,7 +9,7 @@ use App\Src\Model\Data\Row\UserPhotoRow;
 
 class UserPhotoGateway extends TableDataGateway
 {
-    const
+    public const
         ID         = 'id',
         USER_ID    = 'user_id',
         NAME       = 'name',
@@ -26,7 +26,10 @@ class UserPhotoGateway extends TableDataGateway
         return new self();
     }
 
-    protected function insert(Row $object)
+    /**
+     * @param Row $object
+     */
+    protected function insert(Row $object): void
     {
         /** @var UserPhotoRow $object */
         $values = [
@@ -44,7 +47,10 @@ class UserPhotoGateway extends TableDataGateway
         $object->setId((int)$this->pdo->lastInsertId());
     }
 
-    public function delete(Row $object)
+    /**
+     * @param Row $object
+     */
+    public function delete(Row $object): void
     {
         $value = [
             $object->getId()
@@ -55,7 +61,10 @@ class UserPhotoGateway extends TableDataGateway
         $stmt->execute($value);
     }
 
-    protected function update(Row $object)
+    /**
+     * @param Row $object
+     */
+    protected function update(Row $object): void
     {
         /** @var UserPhotoRow $object */
         $values = [
@@ -71,6 +80,10 @@ class UserPhotoGateway extends TableDataGateway
         $stmt->execute($values);
     }
 
+    /**
+     * @param Row $object
+     * @return \PDOStatement
+     */
     protected function select(Row $object): \PDOStatement
     {
         return $this->pdo->prepare(
@@ -78,6 +91,10 @@ class UserPhotoGateway extends TableDataGateway
         );
     }
 
+    /**
+     * @param Row $object
+     * @return array|null
+     */
     public function getByUserId(Row $object): ?array
     {
         /** @var UserPhotoRow $object */
@@ -102,6 +119,10 @@ class UserPhotoGateway extends TableDataGateway
         return $result;
     }
 
+    /**
+     * @param Row $object
+     * @return \PDOStatement
+     */
     protected function selectAll(Row $object): \PDOStatement
     {
         return $this->pdo->prepare(
@@ -109,6 +130,9 @@ class UserPhotoGateway extends TableDataGateway
         );
     }
 
+    /**
+     * @return int
+     */
     public function getCountRows(): int
     {
         $stmt = $this->pdo->prepare(
@@ -119,6 +143,10 @@ class UserPhotoGateway extends TableDataGateway
         return $tmp['count(id)'];
     }
 
+    /**
+     * @param GalleryCriteria $galleryCriteria
+     * @return array
+     */
     public function getGalleryByCriteria(GalleryCriteria $galleryCriteria): array
     {
         $result = [];
@@ -146,6 +174,10 @@ class UserPhotoGateway extends TableDataGateway
         return $result;
     }
 
+    /**
+     * @param array $row
+     * @return Row
+     */
     protected function createObject(array $row): Row
     {
         return
